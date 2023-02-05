@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card, FormField } from '../components';
+import { Card, FormField, Loader } from '../components';
 
 const RenderCards = ({ data, title }) => {
     if (data?.length > 0) {
@@ -14,6 +14,7 @@ const RenderCards = ({ data, title }) => {
 const Home = () => {
     const [allPosts, setAllPosts] = useState(null);
     const [searchText, setSearchText] = useState('');
+    const [loading, setLoading] = useState(false);
 
     return (
         <section className='max-w-7xl mx-auto'>
@@ -24,17 +25,32 @@ const Home = () => {
             <div className='mt-16'>
                 <FormField />
             </div>
-            <div>
-                {searchText ? (
-                    <RenderCards
-                        data={[]}
-                        title="No search results found"
-                    />
+            <div className='mt-10'>
+                {loading ? (
+                    <div className='flex justify-center items-center'>
+                        <Loader />
+                    </div>
                 ) : (
-                    <RenderCards
-                        data={[]}
-                        title="No posts found"
-                    />
+                    <>
+                        {searchText && (
+                            <h2 className='font-medium text-[#666e75] text-xl mb-3'>
+                                Showing results for <span className='text-[#222328]'>{searchText}</span>
+                            </h2>
+                        )}
+                        <div className='grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3'>
+                            {searchText ? (
+                                <RenderCards
+                                    data={[]}
+                                    title='No search results found'
+                                />
+                            ) : (
+                                <RenderCards
+                                    data={[]}
+                                    title='No posts found'
+                                />
+                            )}
+                        </div>
+                    </>
                 )}
             </div>
         </section>

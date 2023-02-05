@@ -23,7 +23,7 @@ const Home = () => {
             setLoading(true);
             
             try {
-                const response = await fetch('https://pic-ai-dall-e.onrender.com/post', {
+                const response = await fetch('https://pic-ai-dall-e.onrender.com/api/v1/post', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
